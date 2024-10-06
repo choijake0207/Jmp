@@ -1,6 +1,7 @@
 const canvas = document.querySelector("canvas")
 canvas.style.border = "1px solid black"
 const game = canvas.getContext('2d')
+const gravity = 1
 
 function Sprite () {
     this.position = {
@@ -21,6 +22,13 @@ function Sprite () {
     this.update = function update() {
         this.draw()
         this.position.y += this.velocity.y
+        // if no collision with bottom border, add gravity
+        if (this.position.y + this.velocity.y + this.dimensions.h <= canvas.height) {
+            this.velocity.y += gravity
+        // else halt sprite
+        } else {
+            this.velocity.y = 0
+        }
     }
 }
 
